@@ -1,0 +1,8 @@
+{
+  "name": "mi-embarazo-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-site.mjs"
+  }
+}

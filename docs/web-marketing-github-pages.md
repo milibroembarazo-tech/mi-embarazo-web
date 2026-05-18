@@ -9,6 +9,10 @@ Usamos una web estática para SEO/marketing y reservamos Flutter Web para flujos
 /diario-embarazo/ landing SEO diario
 /libro-embarazo/  landing SEO libro
 /regalo-embarazo/ landing SEO regalo
+/ca/              versión catalana
+/privacidad/      privacidad
+/terminos/        términos
+/cookies/         cookies
 /app/*            futuro Flutter Web transaccional
 ```
 
@@ -29,7 +33,10 @@ https://milibroembarazo-tech.github.io/mi-embarazo-web/
 - `robots.txt`.
 - `sitemap.xml`.
 - JSON-LD de `Organization`, `WebSite`, `SoftwareApplication`, `FAQPage` y `Product`.
-- Imagen hero generada con GPT Image y guardada en `site/assets/hero-memory-book.png`.
+- Imagen hero generada con GPT Image y guardada optimizada en `site/assets/hero-memory-book.jpg`.
+- Imagen Open Graph dedicada en `site/assets/og-mi-embarazo.jpg`.
+- Página 404 de marca.
+- Versión catalana inicial.
 
 ## Pendiente antes de campañas
 
@@ -39,3 +46,4 @@ https://milibroembarazo-tech.github.io/mi-embarazo-web/
 - Mover Flutter Web transaccional a `/app/*`.
 - Configurar `APP_BASE_URL` con la URL pública definitiva.
 - Añadir Search Console cuando haya dominio final.
+- Validar textos legales antes de campañas con captación o pagos.

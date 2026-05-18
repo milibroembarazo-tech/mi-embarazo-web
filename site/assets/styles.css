@@ -112,6 +112,11 @@ a {
   color: var(--ink);
 }
 
+.lang-link {
+  color: var(--sage-dark);
+  font-weight: 800;
+}
+
 .hero {
   position: relative;
   min-height: 640px;
@@ -365,8 +370,31 @@ h3 {
 }
 
 .footer-links {
+  flex-wrap: wrap;
   display: flex;
   gap: 16px;
+}
+
+.footer-links a {
+  text-decoration: none;
+}
+
+.text-page {
+  max-width: 780px;
+}
+
+.text-page h2 {
+  margin-top: 42px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.text-page p,
+.text-page li {
+  color: var(--muted);
+}
+
+.text-page ul {
+  padding-left: 20px;
 }
 
 @media (max-width: 840px) {
