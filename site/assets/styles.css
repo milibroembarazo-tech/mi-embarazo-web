@@ -7,6 +7,8 @@
   --sage-dark: #465443;
   --clay: #b9795f;
   --rose: #8e5d63;
+  --blush: #e8c7bf;
+  --gold: #d7b56d;
   --line: rgba(50, 40, 36, 0.14);
   --shadow: 0 24px 70px rgba(50, 40, 36, 0.16);
   color-scheme: light;
@@ -121,7 +123,9 @@ a {
   position: relative;
   min-height: 640px;
   overflow: hidden;
-  background: var(--paper);
+  background:
+    linear-gradient(90deg, rgba(229, 216, 193, 0.34) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--paper);
 }
 
 .hero-image {
@@ -152,6 +156,56 @@ a {
   padding: 84px 0 50px;
 }
 
+.scrapbook-hero .hero-content {
+  width: min(720px, calc(100% - 32px));
+  margin-left: max(16px, calc((100% - 1120px) / 2));
+  padding: clamp(32px, 5vw, 54px);
+  border: 1px solid rgba(216, 201, 173, 0.72);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(232, 199, 191, 0.36), transparent 22%),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(251, 247, 239, 0.90));
+  box-shadow: var(--shadow);
+  transform: translateY(54px);
+}
+
+.scrapbook-hero .hero-content::before {
+  content: "";
+  position: absolute;
+  inset: auto auto 28px -18px;
+  width: 88px;
+  height: 68px;
+  border: 7px solid var(--paper);
+  border-radius: 4px;
+  background:
+    linear-gradient(135deg, transparent 46%, rgba(255, 252, 246, 0.28) 48%, transparent 52%),
+    #2d2924;
+  box-shadow: 0 16px 32px rgba(50, 40, 36, 0.18);
+  transform: rotate(-8deg);
+}
+
+.scrapbook-hero .hero-content::after {
+  content: "✿";
+  position: absolute;
+  right: 30px;
+  top: 26px;
+  color: rgba(121, 132, 111, 0.42);
+  font: 76px/1 ui-serif, Georgia, serif;
+}
+
+.tape {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 112px;
+  height: 26px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle, rgba(255, 252, 246, 0.62) 1px, transparent 1.5px) 0 0 / 12px 12px,
+    rgba(185, 121, 95, 0.34);
+  transform: translateX(-50%) rotate(-2deg);
+}
+
 .eyebrow {
   display: inline-flex;
   margin: 0 0 18px;
@@ -176,6 +230,10 @@ h1 {
   font-size: clamp(2.9rem, 5vw, 4.65rem);
 }
 
+h1 span {
+  color: var(--rose);
+}
+
 h2 {
   max-width: 780px;
   font-size: clamp(2.2rem, 5vw, 4.5rem);
@@ -190,6 +248,37 @@ h3 {
   margin: 20px 0 0;
   color: var(--muted);
   font-size: clamp(1.05rem, 2vw, 1.28rem);
+}
+
+.sticker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border: 4px solid var(--paper);
+  border-radius: 50%;
+  box-shadow: 0 12px 28px rgba(50, 40, 36, 0.14);
+}
+
+.sticker.heart {
+  top: 26px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  background: var(--blush);
+  color: var(--paper);
+  font-size: 1.8rem;
+}
+
+.sticker.moon {
+  top: 94px;
+  right: 86px;
+  width: 44px;
+  height: 44px;
+  background: var(--gold);
+  color: #8d6f2e;
+  font-size: 1.55rem;
+  transform: rotate(-18deg);
 }
 
 .hero-actions {
@@ -403,7 +492,7 @@ h3 {
   }
 
   .hero {
-    min-height: 680px;
+    min-height: 760px;
   }
 
   .hero::after {
@@ -413,6 +502,39 @@ h3 {
 
   .hero-content {
     padding-top: 90px;
+  }
+
+  .scrapbook-hero .hero-content {
+    width: min(100% - 24px, 560px);
+    margin: 18px auto 0;
+    padding: 32px 24px 28px;
+    transform: none;
+  }
+
+  .scrapbook-hero .hero-content::before {
+    inset: auto auto -16px 18px;
+    transform: rotate(-5deg);
+  }
+
+  .scrapbook-hero .hero-content::after {
+    right: 20px;
+    top: 24px;
+    font-size: 54px;
+  }
+
+  .scrapbook-hero h1 {
+    font-size: clamp(2.5rem, 12vw, 3.8rem);
+    line-height: 1.02;
+  }
+
+  .sticker.heart {
+    width: 46px;
+    height: 46px;
+    font-size: 1.35rem;
+  }
+
+  .sticker.moon {
+    display: none;
   }
 
   .section-intro,
