@@ -204,6 +204,17 @@ a {
   font: 76px/1 "Fraunces", ui-serif, Georgia, serif;
 }
 
+.brand-illustration {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: -1;
+  width: min(38%, 230px);
+  border-radius: 28px;
+  opacity: 0.24;
+  mix-blend-mode: multiply;
+}
+
 .tape {
   position: absolute;
   top: -13px;
@@ -442,7 +453,21 @@ h3 {
   transform: rotate(12deg);
 }
 
+.sticker-sheet-preview {
+  position: absolute;
+  right: 0;
+  top: 112px;
+  width: min(30vw, 280px);
+  border-radius: 30px;
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transform: rotate(3deg);
+}
+
 .memory-strip {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
@@ -631,6 +656,13 @@ h3 {
     font-size: 54px;
   }
 
+  .brand-illustration {
+    right: 12px;
+    bottom: 10px;
+    width: 152px;
+    opacity: 0.16;
+  }
+
   .scrapbook-hero h1 {
     font-size: clamp(2.5rem, 12vw, 3.8rem);
     line-height: 1.02;
@@ -656,6 +688,10 @@ h3 {
 
   .section {
     padding: 68px 0;
+  }
+
+  .sticker-sheet-preview {
+    display: none;
   }
 
   .footer-inner {
