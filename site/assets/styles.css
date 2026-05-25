@@ -1,18 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;700;800&display=swap");
+
 :root {
-  --ink: #322824;
-  --muted: #6f625c;
-  --paper: #fbf7ef;
-  --paper-2: #f0e5d8;
-  --sage: #79846f;
-  --sage-dark: #465443;
-  --clay: #b9795f;
-  --rose: #8e5d63;
-  --blush: #e8c7bf;
-  --gold: #d7b56d;
-  --line: rgba(50, 40, 36, 0.14);
-  --shadow: 0 24px 70px rgba(50, 40, 36, 0.16);
+  --ink: #1f3f3a;
+  --warm-ink: #24211e;
+  --muted: #6e5a4c;
+  --paper: #f8f2e8;
+  --ivory: #fff9f0;
+  --paper-2: #f0e4d4;
+  --green: #285b55;
+  --green-pressed: #1f4944;
+  --sage: #a8b59a;
+  --sage-dark: #526955;
+  --rose: #d98c86;
+  --peach: #efb49a;
+  --sand: #c9a983;
+  --blush: #f4ddd7;
+  --line: rgba(110, 90, 76, 0.16);
+  --shadow: 0 26px 74px rgba(110, 90, 76, 0.15);
   color-scheme: light;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-family: "Nunito Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -25,9 +31,12 @@ html {
 
 body {
   margin: 0;
-  background: var(--paper);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(217, 140, 134, 0.12), transparent 24%),
+    linear-gradient(90deg, rgba(231, 216, 200, 0.36) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--paper);
   color: var(--ink);
-  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Nunito Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.55;
 }
 
@@ -45,7 +54,7 @@ a {
   top: 0;
   z-index: 10;
   border-bottom: 1px solid var(--line);
-  background: rgba(251, 247, 239, 0.9);
+  background: rgba(248, 242, 232, 0.9);
   backdrop-filter: blur(18px);
 }
 
@@ -62,21 +71,22 @@ a {
   display: inline-flex;
   gap: 10px;
   align-items: center;
-  font-family: ui-serif, Georgia, serif;
+  font-family: "Fraunces", ui-serif, Georgia, serif;
   font-size: 1.08rem;
   font-weight: 700;
   text-decoration: none;
 }
 
 .brand-mark {
-  width: 28px;
-  height: 28px;
-  border: 1px solid rgba(50, 40, 36, 0.2);
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(110, 90, 76, 0.22);
+  border-radius: 12px;
   background:
-    radial-gradient(circle at 50% 38%, var(--paper) 0 17%, transparent 18%),
-    radial-gradient(circle at 50% 62%, var(--clay) 0 28%, transparent 29%),
-    var(--sage);
+    radial-gradient(circle at 50% 36%, var(--ivory) 0 16%, transparent 17%),
+    radial-gradient(circle at 50% 62%, var(--rose) 0 25%, transparent 26%),
+    linear-gradient(160deg, var(--ivory), var(--paper));
+  box-shadow: 0 8px 18px rgba(110, 90, 76, 0.12);
 }
 
 .nav-links {
@@ -101,17 +111,18 @@ a {
   justify-content: center;
   min-height: 44px;
   padding: 0 18px;
-  border: 1px solid var(--ink);
+  border: 1px solid var(--green);
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
-  font-weight: 700;
+  background: var(--green);
+  color: var(--ivory);
+  box-shadow: 0 15px 32px rgba(40, 91, 85, 0.2);
+  font-weight: 800;
   text-decoration: none;
 }
 
 .button.secondary {
-  background: transparent;
-  color: var(--ink);
+  background: rgba(255, 249, 240, 0.74);
+  color: var(--green);
 }
 
 .lang-link {
@@ -124,7 +135,7 @@ a {
   min-height: 640px;
   overflow: hidden;
   background:
-    linear-gradient(90deg, rgba(229, 216, 193, 0.34) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(231, 216, 200, 0.34) 1px, transparent 1px) 0 0 / 22px 22px,
     var(--paper);
 }
 
@@ -144,8 +155,8 @@ a {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(251, 247, 239, 0.96) 0%, rgba(251, 247, 239, 0.82) 34%, rgba(251, 247, 239, 0.24) 58%, rgba(251, 247, 239, 0.08) 100%),
-    linear-gradient(0deg, rgba(251, 247, 239, 0.95) 0%, rgba(251, 247, 239, 0) 32%);
+    linear-gradient(90deg, rgba(248, 242, 232, 0.96) 0%, rgba(248, 242, 232, 0.82) 34%, rgba(248, 242, 232, 0.24) 58%, rgba(248, 242, 232, 0.08) 100%),
+    linear-gradient(0deg, rgba(248, 242, 232, 0.95) 0%, rgba(248, 242, 232, 0) 32%);
 }
 
 .hero-content {
@@ -160,11 +171,11 @@ a {
   width: min(720px, calc(100% - 32px));
   margin-left: max(16px, calc((100% - 1120px) / 2));
   padding: clamp(32px, 5vw, 54px);
-  border: 1px solid rgba(216, 201, 173, 0.72);
-  border-radius: 34px;
+  border: 1px solid rgba(201, 169, 131, 0.42);
+  border-radius: 36px;
   background:
-    radial-gradient(circle at 88% 18%, rgba(232, 199, 191, 0.36), transparent 22%),
-    linear-gradient(180deg, rgba(255, 252, 246, 0.96), rgba(251, 247, 239, 0.90));
+    radial-gradient(circle at 88% 18%, rgba(217, 140, 134, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(255, 249, 240, 0.98), rgba(248, 242, 232, 0.92));
   box-shadow: var(--shadow);
   transform: translateY(54px);
 }
@@ -175,12 +186,12 @@ a {
   inset: auto auto 28px -18px;
   width: 88px;
   height: 68px;
-  border: 7px solid var(--paper);
+  border: 7px solid var(--ivory);
   border-radius: 4px;
   background:
-    linear-gradient(135deg, transparent 46%, rgba(255, 252, 246, 0.28) 48%, transparent 52%),
-    #2d2924;
-  box-shadow: 0 16px 32px rgba(50, 40, 36, 0.18);
+    linear-gradient(135deg, transparent 46%, rgba(255, 249, 240, 0.28) 48%, transparent 52%),
+    #24211e;
+  box-shadow: 0 16px 32px rgba(110, 90, 76, 0.18);
   transform: rotate(-8deg);
 }
 
@@ -189,8 +200,8 @@ a {
   position: absolute;
   right: 30px;
   top: 26px;
-  color: rgba(121, 132, 111, 0.42);
-  font: 76px/1 ui-serif, Georgia, serif;
+  color: rgba(168, 181, 154, 0.55);
+  font: 76px/1 "Fraunces", ui-serif, Georgia, serif;
 }
 
 .tape {
@@ -201,15 +212,15 @@ a {
   height: 26px;
   border-radius: 4px;
   background:
-    radial-gradient(circle, rgba(255, 252, 246, 0.62) 1px, transparent 1.5px) 0 0 / 12px 12px,
-    rgba(185, 121, 95, 0.34);
+    radial-gradient(circle, rgba(255, 249, 240, 0.62) 1px, transparent 1.5px) 0 0 / 12px 12px,
+    rgba(201, 169, 131, 0.42);
   transform: translateX(-50%) rotate(-2deg);
 }
 
 .eyebrow {
   display: inline-flex;
   margin: 0 0 18px;
-  color: var(--sage-dark);
+  color: var(--green);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -220,7 +231,7 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  font-family: "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", serif;
   font-weight: 740;
   line-height: 1.04;
 }
@@ -255,9 +266,9 @@ h3 {
   z-index: 2;
   display: grid;
   place-items: center;
-  border: 4px solid var(--paper);
+  border: 4px solid var(--ivory);
   border-radius: 50%;
-  box-shadow: 0 12px 28px rgba(50, 40, 36, 0.14);
+  box-shadow: 0 12px 28px rgba(110, 90, 76, 0.14);
 }
 
 .sticker.heart {
@@ -266,7 +277,7 @@ h3 {
   width: 58px;
   height: 58px;
   background: var(--blush);
-  color: var(--paper);
+  color: var(--ivory);
   font-size: 1.8rem;
 }
 
@@ -275,7 +286,7 @@ h3 {
   right: 86px;
   width: 44px;
   height: 44px;
-  background: var(--gold);
+  background: #edd49b;
   color: #8d6f2e;
   font-size: 1.55rem;
   transform: rotate(-18deg);
@@ -298,7 +309,7 @@ h3 {
 .proof-pill {
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(251, 247, 239, 0.74);
+  background: rgba(255, 249, 240, 0.74);
   padding: 8px 13px;
   color: var(--muted);
   font-size: 0.9rem;
@@ -345,9 +356,11 @@ h3 {
 
 .card {
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 252, 246, 0.7);
+  border-radius: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 249, 240, 0.88), rgba(248, 242, 232, 0.74));
   padding: 26px;
+  box-shadow: 0 18px 42px rgba(110, 90, 76, 0.08);
 }
 
 .card p {
@@ -364,7 +377,7 @@ h3 {
   margin-bottom: 18px;
   border-radius: 50%;
   background: var(--sage);
-  color: var(--paper);
+  color: var(--green);
   font-weight: 800;
 }
 
@@ -376,10 +389,10 @@ h3 {
 }
 
 .quote {
-  border-left: 4px solid var(--clay);
+  border-left: 4px solid var(--rose);
   padding-left: 24px;
   color: var(--muted);
-  font-family: ui-serif, Georgia, serif;
+  font-family: "Fraunces", ui-serif, Georgia, serif;
   font-size: clamp(1.35rem, 3vw, 2.1rem);
   line-height: 1.2;
 }
@@ -415,23 +428,119 @@ h3 {
   color: var(--muted);
 }
 
+.section-book {
+  position: relative;
+}
+
+.section-book::after {
+  content: "♡";
+  position: absolute;
+  right: 4%;
+  top: 28px;
+  color: rgba(217, 140, 134, 0.45);
+  font: 4rem/1 "Fraunces", ui-serif, Georgia, serif;
+  transform: rotate(12deg);
+}
+
+.memory-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.memory-card {
+  position: relative;
+  min-height: 220px;
+  border: 1px solid rgba(201, 169, 131, 0.34);
+  border-radius: 26px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.36) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--ivory);
+  box-shadow: 0 20px 52px rgba(110, 90, 76, 0.10);
+  padding: 34px 24px 26px;
+}
+
+.memory-card:nth-child(2) {
+  transform: rotate(-1.2deg);
+}
+
+.memory-card:nth-child(3) {
+  transform: rotate(1deg);
+}
+
+.memory-card p {
+  color: var(--muted);
+}
+
+.pin {
+  position: absolute;
+  top: -13px;
+  left: 28px;
+  width: 72px;
+  height: 24px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(217, 140, 134, 0.34);
+  transform: rotate(-3deg);
+}
+
+.pin.peach {
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(239, 180, 154, 0.40);
+}
+
+.pin.sage {
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(168, 181, 154, 0.46);
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.faq-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 249, 240, 0.82);
+  box-shadow: 0 14px 34px rgba(110, 90, 76, 0.07);
+  padding: 20px 22px;
+}
+
+.faq-card summary {
+  cursor: pointer;
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.faq-card p {
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
 .cta-band {
-  border: 1px solid rgba(251, 247, 239, 0.18);
-  border-radius: 8px;
-  background: var(--ink);
-  color: var(--paper);
+  border: 1px solid rgba(201, 169, 131, 0.28);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(239, 180, 154, 0.18), transparent 28%),
+    var(--green);
+  color: var(--ivory);
   padding: clamp(32px, 6vw, 64px);
 }
 
 .cta-band p {
   max-width: 650px;
-  color: rgba(251, 247, 239, 0.76);
+  color: rgba(255, 249, 240, 0.78);
 }
 
 .cta-band .button {
-  border-color: var(--paper);
-  background: var(--paper);
-  color: var(--ink);
+  border-color: var(--ivory);
+  background: var(--ivory);
+  color: var(--green);
 }
 
 .page-hero {
@@ -497,7 +606,7 @@ h3 {
 
   .hero::after {
     background:
-      linear-gradient(180deg, rgba(251, 247, 239, 0.96) 0%, rgba(251, 247, 239, 0.76) 44%, rgba(251, 247, 239, 0.95) 100%);
+      linear-gradient(180deg, rgba(248, 242, 232, 0.96) 0%, rgba(248, 242, 232, 0.76) 44%, rgba(248, 242, 232, 0.95) 100%);
   }
 
   .hero-content {
@@ -540,7 +649,8 @@ h3 {
   .section-intro,
   .split,
   .grid.two,
-  .grid.three {
+  .grid.three,
+  .memory-strip {
     grid-template-columns: 1fr;
   }
 
