@@ -367,6 +367,82 @@ h3 {
   color: var(--muted);
 }
 
+.choice-card {
+  position: relative;
+  min-height: 340px;
+  border: 1px solid rgba(201, 169, 131, 0.38);
+  border-radius: 30px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.32) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(180deg, rgba(255, 249, 240, 0.96), rgba(248, 242, 232, 0.82));
+  padding: 32px 130px 32px 30px;
+  box-shadow: 0 22px 58px rgba(110, 90, 76, 0.10);
+  overflow: hidden;
+}
+
+.choice-card::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 34px;
+  width: 98px;
+  height: 26px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(217, 140, 134, 0.32);
+  transform: rotate(-3deg);
+}
+
+.choice-card.gift-choice::before {
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(168, 181, 154, 0.46);
+  transform: rotate(2deg);
+}
+
+.choice-card p {
+  color: var(--muted);
+}
+
+.choice-card .button {
+  margin-top: 16px;
+}
+
+.choice-kicker {
+  margin: 0 0 14px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gift-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
+  gap: 42px;
+  align-items: center;
+}
+
+.gift-card-preview {
+  position: relative;
+  border: 1px solid rgba(201, 169, 131, 0.42);
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.34) 1px, transparent 1px) 0 0 / 20px 20px,
+    var(--ivory);
+  padding: 34px 116px 30px 28px;
+  box-shadow: var(--shadow);
+  transform: rotate(-1deg);
+}
+
+.mini-list {
+  margin: 18px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}
+
 .feature-number {
   display: inline-flex;
   align-items: center;
@@ -594,10 +670,16 @@ h3 {
   z-index: 1;
 }
 
+.page-hero .wrap > :not(.page-hero-sticker) {
+  position: relative;
+  z-index: 1;
+}
+
 .page-hero-sticker {
   position: absolute;
   right: 0;
   bottom: -28px;
+  z-index: 0;
   width: min(24vw, 210px);
 }
 
@@ -704,7 +786,8 @@ h3 {
   .split,
   .grid.two,
   .grid.three,
-  .memory-strip {
+  .memory-strip,
+  .gift-flow {
     grid-template-columns: 1fr;
   }
 
@@ -713,7 +796,9 @@ h3 {
   }
 
   .card,
-  .memory-card {
+  .memory-card,
+  .choice-card,
+  .gift-card-preview {
     min-height: 0;
     padding-right: 92px;
   }
@@ -725,10 +810,7 @@ h3 {
   }
 
   .page-hero-sticker {
-    right: -8px;
-    bottom: -18px;
-    width: 118px;
-    opacity: 0.82;
+    display: none;
   }
 
   .sticker-sheet-preview {
