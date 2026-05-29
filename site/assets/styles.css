@@ -425,6 +425,62 @@ h3 {
   line-height: 1.08;
 }
 
+.option-intro {
+  align-items: center;
+}
+
+.gift-options-art {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 250px);
+  min-height: 220px;
+  border: 1px solid rgba(201, 169, 131, 0.32);
+  border-radius: 30px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.30) 1px, transparent 1px) 0 0 / 20px 20px,
+    linear-gradient(180deg, rgba(255, 249, 240, 0.94), rgba(248, 242, 232, 0.78));
+  box-shadow: 0 22px 58px rgba(110, 90, 76, 0.10);
+  transform: rotate(1deg);
+}
+
+.gift-options-art::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 42px;
+  width: 108px;
+  height: 24px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(217, 140, 134, 0.30);
+  transform: rotate(-2deg);
+}
+
+.gift-options-book {
+  position: absolute;
+  left: 22px;
+  bottom: 28px;
+  width: 112px;
+  transform: rotate(-8deg);
+}
+
+.gift-options-gift {
+  position: absolute;
+  right: 26px;
+  top: 28px;
+  width: 92px;
+  transform: rotate(5deg);
+}
+
+.gift-options-ticket {
+  position: absolute;
+  right: 42px;
+  bottom: 38px;
+  width: 106px;
+  transform: rotate(-3deg);
+}
+
 .lead {
   color: var(--muted);
   font-size: 1.12rem;
@@ -927,7 +983,8 @@ h3 {
   }
 
   .book-art-collage,
-  .faq-art-card {
+  .faq-art-card,
+  .gift-options-art {
     justify-self: start;
   }
 
@@ -947,6 +1004,23 @@ h3 {
   .faq-art-card {
     width: min(100%, 240px);
     min-height: 0;
+  }
+
+  .gift-options-art {
+    width: min(100%, 240px);
+    min-height: 190px;
+  }
+
+  .gift-options-book {
+    width: 96px;
+  }
+
+  .gift-options-gift {
+    width: 78px;
+  }
+
+  .gift-options-ticket {
+    width: 94px;
   }
 
   .section {
