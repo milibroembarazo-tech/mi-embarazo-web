@@ -211,16 +211,20 @@ a {
 
 .notebook-edge {
   position: absolute;
-  top: 42px;
-  left: -12px;
-  width: 22px;
-  height: 78%;
-  border-radius: 0 16px 16px 0;
+  top: 34px;
+  left: -30px;
+  width: 48px;
+  height: calc(100% - 68px);
+  border-right: 1px solid rgba(201, 169, 131, 0.34);
+  border-radius: 18px 0 0 18px;
   background:
-    radial-gradient(circle, rgba(201, 169, 131, 0.34) 0 1.8px, rgba(255, 249, 240, 0.94) 2.2px 4px, transparent 4.4px) center 18px / 100% 54px repeat-y,
-    linear-gradient(90deg, rgba(255, 249, 240, 0.88), rgba(255, 249, 240, 0));
-  opacity: 0.42;
-  filter: drop-shadow(0 10px 18px rgba(110, 90, 76, 0.12));
+    radial-gradient(circle at 24px 28px, rgba(248, 242, 232, 0.98) 0 7px, rgba(201, 169, 131, 0.50) 7.5px 8.8px, transparent 9.4px) 0 0 / 100% 56px repeat-y,
+    linear-gradient(90deg, rgba(240, 228, 212, 0.86), rgba(255, 249, 240, 0.96));
+  box-shadow:
+    inset -10px 0 18px rgba(201, 169, 131, 0.18),
+    0 18px 34px rgba(110, 90, 76, 0.13);
+  opacity: 0.94;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 10% 92%, 0 84%, 9% 76%, 0 68%, 10% 60%, 0 52%, 9% 44%, 0 36%, 10% 28%, 0 20%, 9% 12%);
 }
 
 .asset-sticker {
@@ -349,13 +353,9 @@ h3 {
   opacity: 0.9;
 }
 
-.section-art-mother {
-  width: min(100%, 220px);
-  max-height: 300px;
-}
-
-.section-art-facing-left {
-  transform: scaleX(-1);
+.section-art-keepsake {
+  width: min(100%, 210px);
+  transform: rotate(-4deg);
 }
 
 .section-art-note {
@@ -891,10 +891,14 @@ h3 {
   }
 
   .notebook-edge {
-    top: 72px;
-    left: -8px;
-    height: 58%;
-    opacity: 0.38;
+    top: 58px;
+    left: -22px;
+    width: 40px;
+    height: calc(100% - 132px);
+    background:
+      radial-gradient(circle at 21px 26px, rgba(248, 242, 232, 0.98) 0 6px, rgba(201, 169, 131, 0.50) 6.5px 7.8px, transparent 8.4px) 0 0 / 100% 50px repeat-y,
+      linear-gradient(90deg, rgba(240, 228, 212, 0.86), rgba(255, 249, 240, 0.96));
+    opacity: 0.9;
   }
 
   .hero-flower {
