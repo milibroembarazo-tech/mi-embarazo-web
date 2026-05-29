@@ -176,24 +176,13 @@ a {
   transform: translateY(54px);
 }
 
-.scrapbook-hero .hero-content > :not(.asset-sticker):not(.tape):not(.brand-illustration) {
+.scrapbook-hero .hero-content > :not(.asset-sticker):not(.tape):not(.brand-illustration):not(.notebook-edge) {
   position: relative;
   z-index: 2;
 }
 
 .scrapbook-hero .hero-content::before {
-  content: "";
-  position: absolute;
-  inset: auto auto 28px -18px;
-  width: 88px;
-  height: 68px;
-  border: 7px solid var(--ivory);
-  border-radius: 4px;
-  background:
-    linear-gradient(135deg, transparent 46%, rgba(255, 249, 240, 0.28) 48%, transparent 52%),
-    #24211e;
-  box-shadow: 0 16px 32px rgba(110, 90, 76, 0.18);
-  transform: rotate(-8deg);
+  content: none;
 }
 
 .brand-illustration {
@@ -220,6 +209,20 @@ a {
   transform: translateX(-50%) rotate(-2deg);
 }
 
+.notebook-edge {
+  position: absolute;
+  top: 42px;
+  right: -22px;
+  width: 38px;
+  height: 78%;
+  border-radius: 16px 0 0 16px;
+  background:
+    radial-gradient(circle, var(--green) 0 4px, transparent 4.5px) center 18px / 100% 34px repeat-y,
+    linear-gradient(90deg, rgba(255, 249, 240, 0), rgba(255, 249, 240, 0.72));
+  opacity: 0.34;
+  filter: drop-shadow(0 10px 18px rgba(110, 90, 76, 0.12));
+}
+
 .asset-sticker {
   display: block;
   object-fit: contain;
@@ -233,6 +236,7 @@ a {
   bottom: 86px;
   z-index: 1;
   width: min(30%, 190px);
+  transform: scaleX(-1) rotate(-2deg);
 }
 
 .hero-flower {
@@ -332,6 +336,29 @@ h3 {
   margin-bottom: 42px;
 }
 
+.section-intro-visual {
+  grid-template-columns: minmax(0, 0.96fr) minmax(260px, 0.58fr) minmax(190px, 0.36fr);
+  align-items: center;
+}
+
+.section-art {
+  width: min(100%, 230px);
+  justify-self: end;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 30px rgba(110, 90, 76, 0.14));
+  opacity: 0.9;
+}
+
+.section-art-mother {
+  width: min(100%, 260px);
+  max-height: 300px;
+}
+
+.section-art-note {
+  width: min(100%, 220px);
+  transform: rotate(4deg);
+}
+
 .lead {
   color: var(--muted);
   font-size: 1.12rem;
@@ -364,6 +391,82 @@ h3 {
 
 .card p {
   margin: 12px 0 0;
+  color: var(--muted);
+}
+
+.choice-card {
+  position: relative;
+  min-height: 340px;
+  border: 1px solid rgba(201, 169, 131, 0.38);
+  border-radius: 30px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.32) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(180deg, rgba(255, 249, 240, 0.96), rgba(248, 242, 232, 0.82));
+  padding: 32px 130px 32px 30px;
+  box-shadow: 0 22px 58px rgba(110, 90, 76, 0.10);
+  overflow: hidden;
+}
+
+.choice-card::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 34px;
+  width: 98px;
+  height: 26px;
+  border-radius: 4px;
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(217, 140, 134, 0.32);
+  transform: rotate(-3deg);
+}
+
+.choice-card.gift-choice::before {
+  background:
+    radial-gradient(circle, rgba(255, 249, 240, 0.65) 1px, transparent 1.5px) 0 0 / 10px 10px,
+    rgba(168, 181, 154, 0.46);
+  transform: rotate(2deg);
+}
+
+.choice-card p {
+  color: var(--muted);
+}
+
+.choice-card .button {
+  margin-top: 16px;
+}
+
+.choice-kicker {
+  margin: 0 0 14px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.gift-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
+  gap: 42px;
+  align-items: center;
+}
+
+.gift-card-preview {
+  position: relative;
+  border: 1px solid rgba(201, 169, 131, 0.42);
+  border-radius: 28px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.34) 1px, transparent 1px) 0 0 / 20px 20px,
+    var(--ivory);
+  padding: 34px 116px 30px 28px;
+  box-shadow: var(--shadow);
+  transform: rotate(-1deg);
+}
+
+.mini-list {
+  margin: 18px 0 0;
+  padding-left: 18px;
   color: var(--muted);
 }
 
@@ -402,6 +505,28 @@ h3 {
   font-family: "Fraunces", ui-serif, Georgia, serif;
   font-size: clamp(1.35rem, 3vw, 2.1rem);
   line-height: 1.2;
+}
+
+.quote-panel {
+  position: relative;
+  min-height: 230px;
+  display: grid;
+  align-items: center;
+}
+
+.section-art-inline {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  width: min(30vw, 190px);
+  opacity: 0.18;
+  transform: translateY(-50%) rotate(5deg);
+  filter: drop-shadow(0 18px 26px rgba(110, 90, 76, 0.12));
+}
+
+.quote-panel .quote {
+  position: relative;
+  z-index: 1;
 }
 
 .steps {
@@ -594,10 +719,16 @@ h3 {
   z-index: 1;
 }
 
+.page-hero .wrap > :not(.page-hero-sticker) {
+  position: relative;
+  z-index: 1;
+}
+
 .page-hero-sticker {
   position: absolute;
   right: 0;
   bottom: -28px;
+  z-index: 0;
   width: min(24vw, 210px);
 }
 
@@ -672,8 +803,7 @@ h3 {
   }
 
   .scrapbook-hero .hero-content::before {
-    inset: auto auto -16px 18px;
-    transform: rotate(-5deg);
+    content: none;
   }
 
   .brand-illustration {
@@ -694,6 +824,13 @@ h3 {
     width: 128px;
   }
 
+  .notebook-edge {
+    top: 72px;
+    right: -16px;
+    height: 58%;
+    opacity: 0.22;
+  }
+
   .hero-flower {
     top: 18px;
     right: 18px;
@@ -704,8 +841,19 @@ h3 {
   .split,
   .grid.two,
   .grid.three,
-  .memory-strip {
+  .memory-strip,
+  .gift-flow {
     grid-template-columns: 1fr;
+  }
+
+  .section-intro-visual {
+    gap: 24px;
+  }
+
+  .section-art {
+    justify-self: start;
+    width: 150px;
+    max-height: 180px;
   }
 
   .section {
@@ -713,7 +861,9 @@ h3 {
   }
 
   .card,
-  .memory-card {
+  .memory-card,
+  .choice-card,
+  .gift-card-preview {
     min-height: 0;
     padding-right: 92px;
   }
@@ -725,14 +875,21 @@ h3 {
   }
 
   .page-hero-sticker {
-    right: -8px;
-    bottom: -18px;
-    width: 118px;
-    opacity: 0.82;
+    display: none;
   }
 
   .sticker-sheet-preview {
     display: none;
+  }
+
+  .quote-panel {
+    min-height: 0;
+  }
+
+  .section-art-inline {
+    right: 0;
+    width: 112px;
+    opacity: 0.14;
   }
 
   .footer-inner {
