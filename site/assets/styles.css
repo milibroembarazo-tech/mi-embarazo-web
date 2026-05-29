@@ -166,7 +166,7 @@ a {
 .scrapbook-hero .hero-content {
   width: min(720px, calc(100% - 32px));
   margin-left: max(16px, calc((100% - 1120px) / 2));
-  padding: clamp(32px, 5vw, 54px) clamp(150px, 17vw, 210px) clamp(32px, 5vw, 54px) clamp(32px, 5vw, 54px);
+  padding: clamp(32px, 5vw, 54px) clamp(150px, 17vw, 210px) clamp(32px, 5vw, 54px) clamp(46px, 6vw, 68px);
   border: 1px solid rgba(201, 169, 131, 0.42);
   border-radius: 36px;
   background:
@@ -212,14 +212,14 @@ a {
 .notebook-edge {
   position: absolute;
   top: 42px;
-  right: -22px;
-  width: 38px;
+  left: -12px;
+  width: 22px;
   height: 78%;
-  border-radius: 16px 0 0 16px;
+  border-radius: 0 16px 16px 0;
   background:
-    radial-gradient(circle, var(--green) 0 4px, transparent 4.5px) center 18px / 100% 34px repeat-y,
-    linear-gradient(90deg, rgba(255, 249, 240, 0), rgba(255, 249, 240, 0.72));
-  opacity: 0.34;
+    radial-gradient(circle, rgba(201, 169, 131, 0.34) 0 1.8px, rgba(255, 249, 240, 0.94) 2.2px 4px, transparent 4.4px) center 18px / 100% 54px repeat-y,
+    linear-gradient(90deg, rgba(255, 249, 240, 0.88), rgba(255, 249, 240, 0));
+  opacity: 0.42;
   filter: drop-shadow(0 10px 18px rgba(110, 90, 76, 0.12));
 }
 
@@ -350,13 +350,79 @@ h3 {
 }
 
 .section-art-mother {
-  width: min(100%, 260px);
+  width: min(100%, 220px);
   max-height: 300px;
+}
+
+.section-art-facing-left {
+  transform: scaleX(-1);
 }
 
 .section-art-note {
   width: min(100%, 220px);
   transform: rotate(4deg);
+}
+
+.book-intro {
+  align-items: center;
+}
+
+.book-art-collage {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 250px);
+  min-height: 210px;
+}
+
+.book-art-main {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 170px;
+  transform: rotate(-4deg);
+}
+
+.book-art-photo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 112px;
+  transform: rotate(6deg);
+  opacity: 0.86;
+}
+
+.faq-intro {
+  align-items: center;
+}
+
+.faq-art-card {
+  justify-self: end;
+  width: min(100%, 230px);
+  min-height: 160px;
+  position: relative;
+  border: 1px solid rgba(201, 169, 131, 0.28);
+  border-radius: 26px;
+  background:
+    linear-gradient(90deg, rgba(231, 216, 200, 0.28) 1px, transparent 1px) 0 0 / 20px 20px,
+    rgba(255, 249, 240, 0.78);
+  box-shadow: 0 20px 52px rgba(110, 90, 76, 0.10);
+  padding: 26px;
+}
+
+.faq-art-card img {
+  width: 120px;
+  margin-left: auto;
+  transform: rotate(4deg);
+}
+
+.faq-art-card span {
+  display: block;
+  margin-top: 14px;
+  color: var(--green);
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 740;
+  line-height: 1.08;
 }
 
 .lead {
@@ -798,7 +864,7 @@ h3 {
   .scrapbook-hero .hero-content {
     width: min(100% - 24px, 560px);
     margin: 18px auto 0;
-    padding: 32px 24px 128px;
+    padding: 32px 24px 128px 36px;
     transform: none;
   }
 
@@ -826,9 +892,9 @@ h3 {
 
   .notebook-edge {
     top: 72px;
-    right: -16px;
+    left: -8px;
     height: 58%;
-    opacity: 0.22;
+    opacity: 0.38;
   }
 
   .hero-flower {
@@ -854,6 +920,29 @@ h3 {
     justify-self: start;
     width: 150px;
     max-height: 180px;
+  }
+
+  .book-art-collage,
+  .faq-art-card {
+    justify-self: start;
+  }
+
+  .book-art-collage {
+    width: 190px;
+    min-height: 150px;
+  }
+
+  .book-art-main {
+    width: 128px;
+  }
+
+  .book-art-photo {
+    width: 82px;
+  }
+
+  .faq-art-card {
+    width: min(100%, 240px);
+    min-height: 0;
   }
 
   .section {
