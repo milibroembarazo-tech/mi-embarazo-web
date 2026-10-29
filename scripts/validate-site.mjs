@@ -44,6 +44,13 @@ for (const file of htmlFiles) {
   const html = fs.readFileSync(file, 'utf8');
   const relativeFile = path.relative(root, file);
 
+  for (const match of html.matchAll(/<a\b[^>]*>/gi)) {
+    if (/\bclass="[^"]*\bbutton\b[^"]*"/i.test(match[0]) &&
+        /\bhref="mailto:contacto@miembarazo\.app(?:[?"#])/i.test(match[0])) {
+      errors.push(`${relativeFile}: marketing CTA uses placeholder email`);
+    }
+  }
+
   if (!/<title>[^<]+<\/title>/.test(html)) {
     errors.push(`${relativeFile}: missing title`);
   }
