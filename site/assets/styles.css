@@ -93,6 +93,12 @@ a {
   font-size: 0.94rem;
 }
 
+.nav-actions {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
 .nav-links a {
   text-decoration: none;
 }
