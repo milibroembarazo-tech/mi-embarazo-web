@@ -18,8 +18,8 @@ http://127.0.0.1:4173/
 
 GitHub Pages publica `site/` mediante `.github/workflows/deploy-github-pages.yml`.
 
-URL:
+Dominio previsto (aún pendiente de DNS y configuración de GitHub Pages):
 
 ```text
-https://milibroembarazo-tech.github.io/mi-embarazo-web/
+https://miembarazo.app/
 ```
