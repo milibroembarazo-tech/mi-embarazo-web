@@ -24,7 +24,13 @@ Usamos una web estática para SEO/marketing y reservamos Flutter Web para flujos
 
 La primera versión se publica con GitHub Pages desde `site/` mediante `.github/workflows/deploy-github-pages.yml`.
 
-URL esperada:
+Dominio canónico previsto (DNS y configuración de Pages pendientes):
+
+```text
+https://miembarazo.app/
+```
+
+La URL técnica de GitHub Pages se conserva como origen mientras se completa el cambio:
 
 ```text
 https://milibroembarazo-tech.github.io/mi-embarazo-web/
@@ -45,12 +51,12 @@ https://milibroembarazo-tech.github.io/mi-embarazo-web/
 ## Pendiente antes de campañas
 
 - Sustituir `mailto:contacto@miembarazo.app` por el destino real.
-- Añadir dominio propio y actualizar canonical/sitemap.
+- Apuntar el DNS de Porkbun a GitHub Pages y verificar HTTPS en el dominio propio.
 - Conectar CTA principal con App Store, Google Play o waitlist real.
 - Mover Flutter Web transaccional a `/app/*`.
-- Configurar `APP_BASE_URL` con la URL pública definitiva.
-- Añadir Search Console cuando haya dominio final.
+- Configurar `APP_BASE_URL=https://miembarazo.app/` cuando el dominio esté activo.
+- Verificar el dominio en Search Console después del cambio de DNS.
 - Validar textos legales antes de campañas con captación o pagos.
-- Completar y revisar la política de privacidad de la app antes de publicar las URLs de soporte/OAuth: identidad legal, proveedores y regiones, IA, conservación/borrado, transferencias y datos que puedan revelar salud.
-- Sustituir el canonical provisional de GitHub Pages por el dominio oficial y actualizar `sitemap.xml` al publicar las páginas de la app.
-- URLs provisionales si se publica en GitHub Pages: soporte `https://milibroembarazo-tech.github.io/mi-embarazo-web/soporte-app/`; privacidad `https://milibroembarazo-tech.github.io/mi-embarazo-web/privacidad-app/`. La portada de OAuth sería la raíz del sitio; no configurar Apple/Google hasta que el dominio oficial esté listo y la política se valide.
+- Completar y revisar la política de privacidad de la app antes de publicar las URLs de soporte/OAuth: proveedores y regiones, IA, conservación/borrado, transferencias y datos que puedan revelar salud.
+- El canonical, sitemap, robots y `site/CNAME` ya apuntan al dominio previsto; completar DNS y activar el dominio en GitHub Pages después de revisar el PR.
+- URLs previstas para Apple/Google: soporte `https://miembarazo.app/soporte-app/`; privacidad `https://miembarazo.app/privacidad-app/`; portada OAuth `https://miembarazo.app/`. No configurar Apple/Google hasta que el DNS esté activo y la política se valide.
