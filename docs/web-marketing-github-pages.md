@@ -4,6 +4,8 @@
 
 Usamos una web estática para SEO/marketing y reservamos Flutter Web para flujos transaccionales.
 
+El claim «Una historia de amor convertida en libro» se usa como mensaje secundario de marketing para el libro. En catalán: «Una història d’amor convertida en llibre». No sustituye el protagonismo de la madre ni se traslada a flujos de la app, compra o checkout.
+
 ```text
 /                 marketing SEO
 /diario-embarazo/ landing SEO diario
