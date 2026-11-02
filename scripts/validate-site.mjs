@@ -147,12 +147,21 @@ for (const file of htmlFiles) {
     errors.push(`${relativeFile}: missing html lang`);
   }
 
-  const favicon = elements.find(({ name, attributes }) =>
+  const favicons = elements.filter(({ name, attributes }) =>
     name === 'link' && attributes.get('rel')?.split(/\s+/).includes('icon'));
-  if (!favicon) {
+  if (!favicons.some(({ attributes }) => attributes.get('href') === '/favicon.ico')) {
     errors.push(`${relativeFile}: missing favicon`);
-  } else if (!favicon.attributes.get('href')?.startsWith('/')) {
-    errors.push(`${relativeFile}: favicon must use a root-relative path`);
+  }
+  if (!favicons.some(
+    ({ attributes }) => attributes.get('href') === '/assets/brand/favicon-64.png',
+  )) {
+    errors.push(`${relativeFile}: missing PNG favicon`);
+  }
+  for (const { attributes } of favicons) {
+    if (!attributes.get('href')?.startsWith('/')) {
+      errors.push(`${relativeFile}: favicon must use a root-relative path`);
+      break;
+    }
   }
 
   if (elements.filter(({ name }) => name === 'h1').length !== 1) {
