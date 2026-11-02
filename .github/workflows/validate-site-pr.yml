@@ -28,5 +28,8 @@ jobs:
       - name: Validate site
         run: npm run validate
 
+      - name: Test validator
+        run: npm run test:validate
+
       - name: Test navigation
         run: npm run test:nav

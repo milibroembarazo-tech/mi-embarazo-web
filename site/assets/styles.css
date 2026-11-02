@@ -295,8 +295,13 @@ h2 {
   font-size: clamp(2.2rem, 5vw, 4.5rem);
 }
 
-h3 {
+h3,
+.card h2 {
   font-size: 1.35rem;
+}
+
+.card h2 {
+  max-width: none;
 }
 
 .hero-copy {
