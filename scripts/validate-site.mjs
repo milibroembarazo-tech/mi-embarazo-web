@@ -147,6 +147,14 @@ for (const file of htmlFiles) {
     errors.push(`${relativeFile}: missing html lang`);
   }
 
+  const favicon = elements.find(({ name, attributes }) =>
+    name === 'link' && attributes.get('rel')?.split(/\s+/).includes('icon'));
+  if (!favicon) {
+    errors.push(`${relativeFile}: missing favicon`);
+  } else if (!favicon.attributes.get('href')?.startsWith('/')) {
+    errors.push(`${relativeFile}: favicon must use a root-relative path`);
+  }
+
   if (elements.filter(({ name }) => name === 'h1').length !== 1) {
     errors.push(`${relativeFile}: expected exactly one h1`);
   }
