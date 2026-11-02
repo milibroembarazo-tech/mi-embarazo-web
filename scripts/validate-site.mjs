@@ -5,6 +5,14 @@ const root = process.cwd();
 const siteDir = path.join(root, 'site');
 const htmlFiles = [];
 const errors = [];
+const commercialPages = new Set([
+  'site/index.html',
+  'site/ca/index.html',
+  'site/libro-embarazo/index.html',
+  'site/ca/llibre-embaras/index.html',
+  'site/regalo-embarazo/index.html',
+  'site/ca/regal-embaras/index.html',
+]);
 
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -97,6 +105,11 @@ for (const file of htmlFiles) {
   const markup = pageMarkup(html);
   const elements = tags(markup);
   const relativeFile = path.relative(root, file);
+
+  if (commercialPages.has(relativeFile) &&
+      /\b(?:pen\s*drive|usb|pdf)\b/i.test(decodeEntities(html))) {
+    errors.push(`${relativeFile}: unsupported PDF or USB offer`);
+  }
 
   if (!elements.some(({ name, attributes }) => name === 'html' && attributes.get('lang'))) {
     errors.push(`${relativeFile}: missing html lang`);
