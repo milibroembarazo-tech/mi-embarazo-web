@@ -13,6 +13,12 @@ const commercialPages = new Set([
   'site/regalo-embarazo/index.html',
   'site/ca/regal-embaras/index.html',
 ]);
+const shippingDisclosurePages = new Map([
+  ['site/libro-embarazo/index.html', 'El envío se paga aparte al solicitar el libro en la app (actualmente, 6 €).'],
+  ['site/regalo-embarazo/index.html', 'El envío se paga aparte al solicitar el libro en la app (actualmente, 6 €).'],
+  ['site/ca/llibre-embaras/index.html', 'L’enviament es paga a part quan demanis el llibre a l’app (actualment, 6 €).'],
+  ['site/ca/regal-embaras/index.html', 'L’enviament es paga a part quan demanis el llibre a l’app (actualment, 6 €).'],
+]);
 
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -105,6 +111,14 @@ for (const file of htmlFiles) {
   const markup = pageMarkup(html);
   const elements = tags(markup);
   const relativeFile = path.relative(root, file);
+
+  if (shippingDisclosurePages.has(relativeFile)) {
+    const body = markup.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] ?? '';
+    const paragraphs = [...body.matchAll(/<p\s*>([^<]*)<\/p\s*>/gi)];
+    if (!paragraphs.some((match) => decodeEntities(match[1]).includes(shippingDisclosurePages.get(relativeFile)))) {
+      errors.push(`${relativeFile}: missing visible shipping disclosure (shipping paid separately, currently 6 €)`);
+    }
+  }
 
   if (commercialPages.has(relativeFile) &&
       /\b(?:pen\s*drive|usb|pdf)\b/i.test(decodeEntities(html))) {
