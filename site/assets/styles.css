@@ -535,6 +535,10 @@ h3 {
   overflow: hidden;
 }
 
+.choice-card[id] {
+  scroll-margin-top: 6rem;
+}
+
 .choice-card::before {
   content: "";
   position: absolute;
