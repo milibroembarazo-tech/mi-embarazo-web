@@ -50,9 +50,10 @@ https://milibroembarazo-tech.github.io/mi-embarazo-web/
 - Página 404 de marca.
 - Versión catalana inicial.
 
+El correo `contacto@miembarazo.app` reenvía a Gmail. Las respuestas enviadas desde Gmail muestran la dirección de Gmail.
+
 ## Pendiente antes de campañas
 
-- Sustituir `mailto:contacto@miembarazo.app` por el destino real.
 - Apuntar el DNS de Porkbun a GitHub Pages y verificar HTTPS en el dominio propio.
 - Conectar CTA principal con App Store, Google Play o waitlist real.
 - Mover Flutter Web transaccional a `/app/*`.
