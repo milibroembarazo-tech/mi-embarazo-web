@@ -151,6 +151,16 @@ for (const file of htmlFiles) {
     errors.push(`${relativeFile}: expected exactly one h1`);
   }
 
+  let previousHeading = 0;
+  for (const { name } of elements) {
+    if (!/^h[1-6]$/.test(name)) continue;
+    const level = Number(name[1]);
+    if (previousHeading && level > previousHeading + 1) {
+      errors.push(`${relativeFile}: heading level skipped from h${previousHeading} to h${level}`);
+    }
+    previousHeading = level;
+  }
+
   for (const { name, attributes } of elements) {
     if (name === 'img' && !attributes.has('alt')) {
       errors.push(`${relativeFile}: image missing alt`);
