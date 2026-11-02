@@ -5,6 +5,12 @@ const root = process.cwd();
 const siteDir = path.join(root, 'site');
 const htmlFiles = [];
 const errors = [];
+const allowedEmailRecipients = new Set([
+  'contacto@miembarazo.app', 'soporte@miembarazo.app', 'privacidad@miembarazo.app',
+]);
+const betaPages = new Set([
+  'site/index.html', 'site/ca/index.html', 'site/diario-embarazo/index.html',
+]);
 const commercialPages = new Set([
   'site/index.html',
   'site/ca/index.html',
@@ -111,6 +117,44 @@ for (const file of htmlFiles) {
   const markup = pageMarkup(html);
   const elements = tags(markup);
   const relativeFile = path.relative(root, file);
+
+  const mailtoLinks = elements.filter(({ name, attributes }) =>
+    name === 'a' && /^mailto:/i.test(attributes.get('href') ?? ''));
+  if (betaPages.has(relativeFile) && !mailtoLinks.length) {
+    errors.push(`${relativeFile}: missing beta request email link`);
+  }
+  for (const { attributes } of mailtoLinks) {
+    const href = attributes.get('href');
+    try {
+      const address = href.slice(7);
+      const queryIndex = address.indexOf('?');
+      const recipient = queryIndex < 0 ? address : address.slice(0, queryIndex);
+      const query = queryIndex < 0 ? '' : address.slice(queryIndex + 1);
+      const params = new URLSearchParams(query);
+      const recipients = [decodeURIComponent(recipient)];
+      for (const [key, value] of params) {
+        if (/^(?:to|cc|bcc)$/i.test(key)) recipients.push(value);
+      }
+      if (recipients.flatMap((value) => value.split(',')).some((value) =>
+        !allowedEmailRecipients.has(value.trim().toLowerCase()))) {
+        errors.push(`${relativeFile}: unapproved email recipient`);
+      }
+      if (betaPages.has(relativeFile)) {
+        if (recipients.length !== 1 || decodeURIComponent(recipient).trim().toLowerCase() !== 'contacto@miembarazo.app') {
+          errors.push(`${relativeFile}: beta email must be addressed to contacto@miembarazo.app only`);
+        }
+        const subject = params.get('subject')?.trim();
+        const body = params.get('body')?.trim();
+        if (!subject || !body) errors.push(`${relativeFile}: beta email requires subject and body`);
+        if (body && (!/\b(?:se|es)\s+(?:revisará|revisarà|coordinará|coordinarà)\s+manual(?:mente|ment)\b/i.test(body) ||
+            /\bno\s+(?:se|es)\s+(?:revisará|revisarà|coordinará|coordinarà)\s+manual(?:mente|ment)\b/i.test(body))) {
+          errors.push(`${relativeFile}: beta email body must state manual review or coordination`);
+        }
+      }
+    } catch {
+      errors.push(`${relativeFile}: invalid email link`);
+    }
+  }
 
   if (commercialPages.has(relativeFile)) {
     const body = markup.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] ?? '';

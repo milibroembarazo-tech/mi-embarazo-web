@@ -44,6 +44,40 @@ try {
     assert.equal(result.status, 1);
     assert.match(result.stderr, /site\/ca\/suport-app\/index\.html: uses legacy contact email/);
   }
+  fs.writeFileSync(page, original);
+  for (const recipient of ['personal@example.com', 'contacto@miembarazo.app?cc=personal@gmail.com',
+    'contacto@miembarazo.app?subject=x?y&amp;cc=personal@gmail.com']) {
+    fs.writeFileSync(page, original.replace('mailto:soporte@miembarazo.app', `mailto:${recipient}`));
+    const result = validate();
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /unapproved email recipient/);
+  }
+  fs.writeFileSync(page, original);
+  for (const betaPage of ['site/index.html', 'site/ca/index.html', 'site/diario-embarazo/index.html']) {
+    const betaPath = path.join(tempDir, betaPage);
+    const betaOriginal = fs.readFileSync(betaPath, 'utf8');
+    for (const [content, expected] of [
+      [betaOriginal.replace(/subject=[^&"]+&amp;/, ''), /beta email requires subject and body/],
+      [betaOriginal.replace(/&amp;body=[^"]+/, ''), /beta email requires subject and body/],
+      [betaOriginal.replace(/(&amp;body=)[^"]+/, '$1Hola'), /beta email body must state manual review or coordination/],
+      [betaOriginal.replace(/(&amp;body=)[^"]+/, '$1no%20se%20revisar%C3%A1%20manualmente'), /beta email body must state manual review or coordination/],
+      ...['soporte', 'privacidad'].map((recipient) => [
+        betaOriginal.replace('mailto:contacto@miembarazo.app', `mailto:${recipient}@miembarazo.app`),
+        /beta email must be addressed to contacto@miembarazo\.app/,
+      ]),
+      ...['to', 'cc', 'bcc'].map((field) => [
+        betaOriginal.replace('mailto:contacto@miembarazo.app?', `mailto:contacto@miembarazo.app?${field}=privacidad@miembarazo.app&amp;`),
+        /beta email must be addressed to contacto@miembarazo\.app only/,
+      ]),
+    ]) {
+      assert.notEqual(content, betaOriginal);
+      fs.writeFileSync(betaPath, content);
+      const result = validate();
+      assert.equal(result.status, 1);
+      assert.match(result.stderr, expected);
+    }
+    fs.writeFileSync(betaPath, betaOriginal);
+  }
   console.log('Site validation checks passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
