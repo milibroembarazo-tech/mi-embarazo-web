@@ -15,12 +15,9 @@ try {
   assert.equal(validate().status, 0);
   const cases = [
     [original.replace(/<html\s+lang="[^"]+"/, '<html'), /missing html lang/],
-    [original.replace(/<link rel="icon"[^>]*>\n/, ''), /missing favicon/],
+    [original.replace(/^\s*<link rel="icon"[^>]*>\n/gm, ''), /missing favicon/],
     [
-      original.replace(
-        /href="\/assets\/brand\/favicon-64\.png"/,
-        'href="assets/brand/favicon-64.png"',
-      ),
+      original.replace('href="/favicon.ico"', 'href="favicon.ico"'),
       /favicon must use a root-relative path/,
     ],
     [original.replace(/<h1\b[^>]*>[\s\S]*?<\/h1>/i, ''), /expected exactly one h1/],
