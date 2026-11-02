@@ -181,11 +181,8 @@ for (const file of htmlFiles) {
     }
   }
 
-  for (const match of html.matchAll(/<a\b[^>]*>/gi)) {
-    if (/\bclass="[^"]*\bbutton\b[^"]*"/i.test(match[0]) &&
-        /\bhref="mailto:contacto@miembarazo\.app(?:[?"#])/i.test(match[0])) {
-      errors.push(`${relativeFile}: marketing CTA uses placeholder email`);
-    }
+  if (/milibroembarazo@gmail\.com/i.test(decodeEntities(fs.readFileSync(file, 'utf8')))) {
+    errors.push(`${relativeFile}: uses legacy contact email`);
   }
 
   if (!/<title>[^<]+<\/title>/.test(html)) {
