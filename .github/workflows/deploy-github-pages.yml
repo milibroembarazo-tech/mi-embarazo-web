@@ -33,6 +33,9 @@ jobs:
       - name: Validate site
         run: npm run validate
 
+      - name: Test navigation
+        run: npm run test:nav
+
   deploy:
     needs: validate
     environment:
