@@ -29,8 +29,8 @@ function existsTarget(fromFile, rawUrl) {
   }
 
   const cleanUrl = rawUrl.split('#')[0].split('?')[0];
-  if (cleanUrl.startsWith('/mi-embarazo-web/')) {
-    const target = path.join(siteDir, cleanUrl.replace('/mi-embarazo-web/', ''));
+  if (cleanUrl.startsWith('/')) {
+    const target = path.join(siteDir, cleanUrl.replace(/^\/mi-embarazo-web(?=\/|$)/, ''));
     return fs.existsSync(target) || fs.existsSync(path.join(target, 'index.html'));
   }
 
@@ -40,9 +40,101 @@ function existsTarget(fromFile, rawUrl) {
 
 walk(siteDir);
 
+function readHtml(file) {
+  return fs.readFileSync(file, 'utf8').replace(/<!--[\s\S]*?-->/g, '');
+}
+
+function pageMarkup(html) {
+  return html.replace(/(<(script|style)\b[^>]*>)[\s\S]*?<\/\2\s*>/gi, '$1');
+}
+
+function decodeEntities(value) {
+  const named = {
+    amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: '\u00a0',
+    aacute: 'á', eacute: 'é', iacute: 'í', oacute: 'ó', uacute: 'ú',
+    Aacute: 'Á', Eacute: 'É', Iacute: 'Í', Oacute: 'Ó', Uacute: 'Ú',
+    agrave: 'à', egrave: 'è', igrave: 'ì', ograve: 'ò', ugrave: 'ù',
+    Agrave: 'À', Egrave: 'È', Igrave: 'Ì', Ograve: 'Ò', Ugrave: 'Ù',
+    uuml: 'ü', Uuml: 'Ü', iuml: 'ï', Iuml: 'Ï', ntilde: 'ñ', Ntilde: 'Ñ',
+    ccedil: 'ç', Ccedil: 'Ç',
+  };
+  return value.replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (entity, code) => {
+    if (code[0] !== '#') return named[code] ?? entity;
+    const number = code[1].toLowerCase() === 'x' ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);
+    return number > 0 && number <= 0x10ffff && !(number >= 0xd800 && number <= 0xdfff)
+      ? String.fromCodePoint(number) : '\ufffd';
+  });
+}
+
+function tags(html) {
+  return [...html.matchAll(/<([a-z][\w:-]*)\b((?:[^>"']|"[^"]*"|'[^']*')*)>/gi)].map((match) => {
+    const attributes = new Map();
+    for (const attr of match[2].matchAll(/([^\s/="'<>`]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'`=<>]+)))?/g)) {
+      const name = attr[1].toLowerCase();
+      if (!attributes.has(name)) attributes.set(name, decodeEntities(attr[2] ?? attr[3] ?? attr[4] ?? ''));
+    }
+    return { name: match[1].toLowerCase(), attributes };
+  });
+}
+
+const idsByFile = new Map();
 for (const file of htmlFiles) {
-  const html = fs.readFileSync(file, 'utf8');
+  const elements = tags(pageMarkup(readHtml(file)));
+  const ids = new Set();
+  for (const { attributes } of elements) {
+    if (!attributes.has('id')) continue;
+    const id = attributes.get('id');
+    if (ids.has(id)) {
+      errors.push(`${path.relative(root, file)}: duplicate id ${id}`);
+    }
+    ids.add(id);
+  }
+  idsByFile.set(file, ids);
+}
+
+for (const file of htmlFiles) {
+  const html = readHtml(file);
+  const markup = pageMarkup(html);
+  const elements = tags(markup);
   const relativeFile = path.relative(root, file);
+
+  if (!elements.some(({ name, attributes }) => name === 'html' && attributes.get('lang'))) {
+    errors.push(`${relativeFile}: missing html lang`);
+  }
+
+  if (elements.filter(({ name }) => name === 'h1').length !== 1) {
+    errors.push(`${relativeFile}: expected exactly one h1`);
+  }
+
+  for (const { name, attributes } of elements) {
+    if (name === 'img' && !attributes.has('alt')) {
+      errors.push(`${relativeFile}: image missing alt`);
+    }
+  }
+
+  for (const { attributes } of elements) {
+    const href = attributes.get('href');
+    if (!href || !/#.+/.test(href)) continue;
+    const [url, rawFragment] = href.split('#');
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(url)) continue;
+    let fragment;
+    try {
+      fragment = decodeURIComponent(rawFragment);
+    } catch {
+      errors.push(`${relativeFile}: invalid fragment ${href}`);
+      continue;
+    }
+    const cleanUrl = url.split('?')[0];
+    let target = cleanUrl.startsWith('/')
+      ? path.join(siteDir, cleanUrl.replace(/^\/mi-embarazo-web(?=\/|$)/, ''))
+      : path.resolve(path.dirname(file), cleanUrl || path.basename(file));
+    if (fs.existsSync(target) && fs.statSync(target).isDirectory()) {
+      target = path.join(target, 'index.html');
+    }
+    if (idsByFile.has(target) && !idsByFile.get(target).has(fragment)) {
+      errors.push(`${relativeFile}: missing fragment ${href}`);
+    }
+  }
 
   for (const match of html.matchAll(/<a\b[^>]*>/gi)) {
     if (/\bclass="[^"]*\bbutton\b[^"]*"/i.test(match[0]) &&
@@ -59,9 +151,12 @@ for (const file of htmlFiles) {
     errors.push(`${relativeFile}: missing description`);
   }
 
-  for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    if (!existsTarget(file, match[1])) {
-      errors.push(`${relativeFile}: broken link ${match[1]}`);
+  for (const { attributes } of elements) {
+    for (const attribute of ['href', 'src']) {
+      const url = attributes.get(attribute);
+      if (url && !existsTarget(file, url)) {
+        errors.push(`${relativeFile}: broken link ${url}`);
+      }
     }
   }
 
