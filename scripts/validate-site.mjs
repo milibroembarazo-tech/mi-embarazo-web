@@ -112,6 +112,24 @@ for (const file of htmlFiles) {
   const elements = tags(markup);
   const relativeFile = path.relative(root, file);
 
+  if (commercialPages.has(relativeFile)) {
+    const body = markup.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] ?? '';
+    const notice = relativeFile.startsWith('site/ca/')
+      ? 'Compra de prova: no es farà cap càrrec real.'
+      : 'Compra de prueba: no se realizará ningún cargo real.';
+    const checkoutLinks = [...body.matchAll(/<a\b[^>]*href="https:\/\/mi-embarazo-7d5d6\.web\.app\/gift\/(?:\?[^"#]*)?"[^>]*>/gi)];
+    let previousLinkEnd = 0;
+    if (!checkoutLinks.length) errors.push(`${relativeFile}: missing gift checkout link`);
+    for (const link of checkoutLinks) {
+      const preceding = body.slice(Math.max(previousLinkEnd, link.index - 500), link.index);
+      const notices = [...preceding.matchAll(/<(?:p|span)\b[^>]*>([^<]*)<\/(?:p|span)\s*>/gi)];
+      if (!notices.some((match) => decodeEntities(match[1]).includes(notice))) {
+        errors.push(`${relativeFile}: missing test checkout notice before gift link`);
+      }
+      previousLinkEnd = link.index + link[0].length;
+    }
+  }
+
   if (shippingDisclosurePages.has(relativeFile)) {
     const body = markup.match(/<body\b[^>]*>([\s\S]*?)<\/body\s*>/i)?.[1] ?? '';
     const paragraphs = [...body.matchAll(/<p\s*>([^<]*)<\/p\s*>/gi)];
