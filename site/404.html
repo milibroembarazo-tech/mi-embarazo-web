@@ -5,32 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="64x64" href="/assets/brand/favicon-64.png">
-  <title>Página no encontrada | Mi Embarazo</title>
+  <title>404 | Mi Embarazo</title>
   <meta name="robots" content="noindex">
   <link rel="stylesheet" href="/assets/styles.css">
   <script src="/assets/nav.js" defer></script>
+  <style>
+    .localized-error { display: none; }
+    #es { display: block; }
+    #ca:target { display: block; }
+    #ca:target ~ #es { display: none; }
+    .language-links { display: flex; gap: 8px; margin-top: 24px; }
+  </style>
 </head>
 <body>
   <header class="site-header">
     <nav class="nav" aria-label="Principal">
       <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>Mi Embarazo</a>
-      <div class="nav-links">
-        <a href="/diario-embarazo/">Diario</a>
-        <a href="/libro-embarazo/">Libro</a>
-        <a href="/regalo-embarazo/">Regalo</a>
+      <div class="nav-links language-links">
+        <a href="#es" hreflang="es">Español</a>
+        <a href="#ca" hreflang="ca">Català</a>
       </div>
     </nav>
   </header>
   <main>
     <section class="page-hero">
       <div class="wrap text-page">
-        <p class="eyebrow">404</p>
-        <h1>Esta página no está disponible.</h1>
-        <p class="hero-copy">Puedes volver al inicio o seguir por una de las páginas principales de Mi Embarazo.</p>
-        <div class="hero-actions">
-          <a class="button" href="/">Volver al inicio</a>
-          <a class="button secondary" href="/regalo-embarazo/">Ver regalo</a>
-        </div>
+        <h1>404</h1>
+        <section id="ca" class="localized-error" lang="ca">
+          <p class="eyebrow">404</p>
+          <h2>Aquesta pàgina no està disponible.</h2>
+          <p class="hero-copy">Pots tornar a l'inici o continuar cap a una de les pàgines principals de Mi Embarazo.</p>
+          <div class="hero-actions">
+            <a class="button" href="/ca/">Tornar a l'inici</a>
+            <a class="button secondary" href="/ca/regal-embaras/">Veure el regal</a>
+          </div>
+        </section>
+        <section id="es" class="localized-error" lang="es">
+          <h2>Esta página no está disponible.</h2>
+          <p class="hero-copy">Puedes volver al inicio o seguir por una de las páginas principales de Mi Embarazo.</p>
+          <div class="hero-actions">
+            <a class="button" href="/">Volver al inicio</a>
+            <a class="button secondary" href="/regalo-embarazo/">Ver regalo</a>
+          </div>
+        </section>
       </div>
     </section>
   </main>
