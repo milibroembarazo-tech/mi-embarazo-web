@@ -17,6 +17,7 @@ http://127.0.0.1:4173/
 ## Deploy
 
 GitHub Pages publica `site/` mediante `.github/workflows/deploy-github-pages.yml`.
+La última auditoría de copy ES/CA está documentada en [`docs/copy-audit.md`](docs/copy-audit.md).
 
 Dominio previsto (aún pendiente de DNS y configuración de GitHub Pages):
 

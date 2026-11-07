@@ -33,3 +33,6 @@ jobs:
 
       - name: Test navigation
         run: npm run test:nav
+
+      - name: Test copy audit
+        run: npm run test:copy
