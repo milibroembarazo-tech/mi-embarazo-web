@@ -25,6 +25,38 @@ const shippingDisclosurePages = new Map([
   ['site/ca/llibre-embaras/index.html', 'L’enviament es paga a part quan demanis el llibre a l’app (actualment, 6 €).'],
   ['site/ca/regal-embaras/index.html', 'L’enviament es paga a part quan demanis el llibre a l’app (actualment, 6 €).'],
 ]);
+const accountDeletionPages = new Map([
+  ['site/eliminar-cuenta/index.html', {
+    h1: 'Eliminar tu cuenta de Mi Embarazo',
+    requiredText: [
+      'eliminaremos la cuenta y el contenido personal asociado',
+      'pedido, pago, reembolso o solicitud de regalo que aún requiera gestión',
+      'datos mínimos de pedidos, pagos o facturación',
+      'una restauración de una copia puede requerir volver a aplicar las solicitudes de eliminación',
+      'plazo máximo de un mes',
+    ],
+  }],
+  ['site/ca/eliminar-compte/index.html', {
+    h1: 'Eliminar el teu compte de Mi Embarazo',
+    requiredText: [
+      'eliminarem el compte i el contingut personal associat',
+      'comanda, pagament, reemborsament o sol·licitud de regal que encara necessiti gestió',
+      'dades mínimes de comandes, pagaments o facturació',
+      'si es restaura una còpia, pot caldre tornar a aplicar les sol·licituds d\'eliminació',
+      "termini màxim d'un mes",
+    ],
+  }],
+  ['site/en/delete-account/index.html', {
+    h1: 'Delete your Mi Embarazo account',
+    requiredText: [
+      'we will delete your account and associated personal content',
+      'order, payment, refund, or gift request still needs to be handled',
+      'minimum order, payment, or billing data',
+      'restoring a backup may require deletion requests to be reapplied',
+      'respond within one month',
+    ],
+  }],
+]);
 
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -179,6 +211,23 @@ for (const file of htmlFiles) {
     const paragraphs = [...body.matchAll(/<p\s*>([^<]*)<\/p\s*>/gi)];
     if (!paragraphs.some((match) => decodeEntities(match[1]).includes(shippingDisclosurePages.get(relativeFile)))) {
       errors.push(`${relativeFile}: missing visible shipping disclosure (shipping paid separately, currently 6 €)`);
+    }
+  }
+
+  if (accountDeletionPages.has(relativeFile)) {
+    const requirements = accountDeletionPages.get(relativeFile);
+    const text = decodeEntities(markup).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').toLowerCase();
+    if (!text.includes(requirements.h1.toLowerCase())) {
+      errors.push(`${relativeFile}: missing the app account deletion heading`);
+    }
+    for (const phrase of requirements.requiredText) {
+      if (!text.includes(phrase.toLowerCase())) {
+        errors.push(`${relativeFile}: missing account deletion disclosure: ${phrase}`);
+      }
+    }
+    if (!mailtoLinks.some(({ attributes }) =>
+      /^mailto:privacidad@miembarazo\.app\?subject=/i.test(attributes.get('href') ?? ''))) {
+      errors.push(`${relativeFile}: missing a direct privacy email request link`);
     }
   }
 

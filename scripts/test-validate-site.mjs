@@ -13,6 +13,20 @@ try {
   const validate = () => spawnSync(process.execPath, [validator], { cwd: tempDir, encoding: 'utf8' });
 
   assert.equal(validate().status, 0);
+  const deletionPagePath = path.join(tempDir, 'site/eliminar-cuenta/index.html');
+  const deletionPageOriginal = fs.readFileSync(deletionPagePath, 'utf8');
+  for (const [content, expected] of [
+    [deletionPageOriginal.replace('<h1>Eliminar tu cuenta de Mi Embarazo</h1>', '<h1>Privacidad</h1>'), /missing the app account deletion heading/],
+    [deletionPageOriginal.replace('href="mailto:privacidad@miembarazo.app?subject=', 'href="mailto:soporte@miembarazo.app?subject='), /missing a direct privacy email request link/],
+    [deletionPageOriginal.replace('pedido, pago, reembolso o solicitud de regalo que aún requiera gestión', 'pedido terminado'), /missing account deletion disclosure: pedido, pago, reembolso o solicitud de regalo que aún requiera gestión/],
+    [deletionPageOriginal.replace('Una restauración de una copia puede requerir volver a aplicar las solicitudes de eliminación', 'El UID impide restaurar datos'), /missing account deletion disclosure: una restauración de una copia puede requerir volver a aplicar las solicitudes de eliminación/],
+  ]) {
+    fs.writeFileSync(deletionPagePath, content);
+    const result = validate();
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, expected);
+  }
+  fs.writeFileSync(deletionPagePath, deletionPageOriginal);
   const cases = [
     [original.replace(/<html\s+lang="[^"]+"/, '<html'), /missing html lang/],
     [original.replace(/^\s*<link rel="icon"[^>]*>\n/gm, ''), /missing favicon/],
