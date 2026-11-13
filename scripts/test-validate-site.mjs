@@ -20,6 +20,7 @@ try {
     [deletionPageOriginal.replace('href="mailto:privacidad@miembarazo.app?subject=', 'href="mailto:soporte@miembarazo.app?subject='), /missing a direct privacy email request link/],
     [deletionPageOriginal.replace('pedido, pago, reembolso o solicitud de regalo que aún requiera gestión', 'pedido terminado'), /missing account deletion disclosure: pedido, pago, reembolso o solicitud de regalo que aún requiera gestión/],
     [deletionPageOriginal.replace('Una restauración de una copia puede requerir volver a aplicar las solicitudes de eliminación', 'El UID impide restaurar datos'), /missing account deletion disclosure: una restauración de una copia puede requerir volver a aplicar las solicitudes de eliminación/],
+    [deletionPageOriginal.replace('Para verificar la solicitud, enviaremos un código de un solo uso a la dirección verificada asociada a tu cuenta.', 'Para verificar la solicitud, confiaremos solo en el remitente.'), /missing account deletion disclosure: enviaremos un código de un solo uso a la dirección verificada asociada a tu cuenta/],
   ]) {
     fs.writeFileSync(deletionPagePath, content);
     const result = validate();
